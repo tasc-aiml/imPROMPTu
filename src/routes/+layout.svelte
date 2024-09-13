@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.pcss";
-  import { Navbar, Footer, ScrollToTop } from "$lib/components";
+  import { Navbar, ScrollToTop } from "$lib/components";
   import { darkTheme } from "$lib/stores/theme";
   import { loading, themeSet } from "$lib/stores/stores";
   import { navigating } from "$app/stores";
@@ -8,7 +8,7 @@
 
   $darkTheme;
   $themeSet;
-  $: $loading = !!$navigating;  
+  $: $loading = !!$navigating; 
 </script>
 
 <svelte:head>
