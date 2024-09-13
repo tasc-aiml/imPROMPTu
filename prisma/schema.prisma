@@ -138,7 +138,7 @@ model Submissions {
 
   teamId String
   round  Int
-  link   String
+  link   String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
