@@ -25,8 +25,24 @@ model User {
   accounts Account[]
   sessions Session[]
 
+  displayName String?
+  phone       String?
+  username    String?
+  college     String? @default("N.M.A.M. Institute of Technology")
+  usn         String?
+  lightTheme  String?
+  darkTheme   String?
+  role        Role    @default(USER)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Team Team[] @relation("UserTeam")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Account {
@@ -60,15 +76,83 @@ model Session {
   updatedAt DateTime @updatedAt
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+model Event {
+  id String @id @default(cuid())
 
-  @@id([identifier, token])
+  title        String
+  description  String?
+  image        String
+  date         DateTime
+  time         String?
+  reportLink   String?
+  venue        String?
+  category     EventCategory
+  minTeamSize  Int           @default(1)
+  maxTeamSize  Int           @default(1)
+  type         EventType
+  participants Team[]
+  winners      Winners[]
+  guests       String[]
+  published    Boolean       @default(false)
 }
 
-enum UserRole {
-  USER
-  ADMIN
+model Team {
+  id String @id @default(cuid())
+
+  storyId     String?
+  name        String?
+  user        User[]        @relation("UserTeam")
+  event       Event         @relation(fields: [eventId], references: [id])
+  winner      Winners?
+  attended    Boolean       @default(false)
+  submissions Submissions[]
+
+  eventId String
+  story   Story? @relation(fields: [storyId], references: [id])
+}
+
+model Winners {
+  id String @id @default(cuid())
+
+  position Int
+  teamId   String @unique
+  eventId  String
+
+  event Event @relation(fields: [eventId], references: [id])
+  team  Team  @relation(fields: [teamId], references: [id])
+}
+
+enum EventType {
+  SOLO
+  TEAM
+}
+
+enum EventCategory {
+  PREVIOUS
+  UPCOMING
+  CURRENT
+}
+
+model Submissions {
+  id String @id @default(cuid())
+
+  teamId String
+  round  Int
+  link   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  storyId String
+
+  team Team @relation(fields: [teamId], references: [id])
+}
+
+model Story {
+  id String @id @default(cuid())
+
+  title       String
+  description String?
+
+  team Team[]
 }

@@ -17,9 +17,6 @@
       const footer = document.getElementsByTagName("footer")[0];
       const navbar = document.getElementsByTagName("nav")[0];
 
-      console.log(mainSection);
-      
-
       if (mainSection && (footer ||  navbar)) {
         if ($menuOpen) {
           mainSection?.classList.add("blur-sm");
