@@ -15,3 +15,25 @@ const deleteUserZ = z.object({
 });
 
 export { getUserZ, updateUserZ, deleteUserZ };
+
+export const storySelectSchema = z.object({
+  teamId: z.string(),
+  storyId: z.string(),
+})
+
+export const storySchema = z.object({
+  storyId: z.string(),
+})
+
+export const newSubmissionSchema = z.object({
+  teamId: z.string(),
+  roundId: z.number(),
+  storyId: z.string(),
+})
+
+export const updateSubmissionSchema = z.object({
+  teamId: z.string(),
+  roundId: z.number(),
+  link: z.string(),
+  submissionId: z.string(),
+})
