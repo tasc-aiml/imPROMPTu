@@ -35,10 +35,10 @@
 </script>
 
 <nav
-  class="w-full h-20 border-b-2 flex justify-center flex-row items-center relative text-foreground"
+  class="w-full h-20 border-b-2 flex justify-center flex-row items-center relative text-foreground bg-white dark:bg-background z-30"
 >
   <!-- logo -->
-  <div class="max-w-[90rem] w-full flex flex-row px-6">
+  <div class="max-w-[90rem] w-full flex flex-row px-6 relative">
     <a
       href="/"
       class="text-4xl w-full text-center md:w-fit font-extrabold hover:cursor-pointer"
@@ -47,7 +47,7 @@
 
     <!-- nav items -->
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions  a11y-click-events-have-key-events-->
-    <ul
+    <!-- <ul
       class="flex-row gap-10 text-center flex-grow mx-10 justify-center items-center font-bold text-xl hidden md:flex"
     >
       {#each navItems as item}
@@ -58,10 +58,10 @@
           <a href={item.link}>{item.name}</a>
         </li>
       {/each}
-    </ul>
+    </ul> -->
 
     <!-- profiles -->
-    <div class="w-fit gap-4 md:flex hidden">
+    <div class="w-fit gap-4 md:flex hidden right-0 absolute">
       <ThemeSwitch class="size-10 md:block hidden" />
       {#if $page.data.session === null}
         <Button on:click={() => signIn()}>Sign In</Button>

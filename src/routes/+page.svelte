@@ -4,17 +4,32 @@
   
   import { trpc } from "$lib/trpc/client";
   import { storySchema } from "$lib/zod/user";
+  import { onMount } from "svelte";
+  import type { PageData } from "./$types";
 
-  trpc().storyRouter.getStory.query(storySchema.parse({storyId:"1"})).then((data) => {
+  export let data: PageData;
+  console.log(data);
+  let storyData: any = null;
+
+  onMount(() => {
+	trpc().storyRouter.getStory.query(storySchema.parse({storyId:"1"})).then((data) => {
 	console.log(data);
+	storyData = data;
+  })
   })
 </script>
 
-<div class="w-full h-full justify-center flex flex-col items-center">hero
-	<Button on:click={() => {
-		goto("/round1");
-	}}>Round 1</Button>
-	<Button on:click={() => {
-		goto("/round2");
-	}}>Round 2</Button>
+<div class="w-full h-full justify-center flex flex-col items-center">
+	{#if data.story}
+		<Button class="bg-[#cb6ce6] absolute top-[40%] w-56 h-16 rounded-full text-4xl z-20" on:click={() => {
+			goto("/round1");
+		}}>Round 1</Button>
+		<Button class="bg-[#80a3ff] absolute top-[60%] right-[25%] w-56 h-16 rounded-full text-4xl z-20" on:click={() => {
+			goto("/round2");
+		}}>Round 2</Button>
+	{:else}
+		<Button class="absolute top-[50%] right-[37%] w-72 h-16 rounded-full text-4xl z-20 dark:bg-slate-300 bg-slate-600" on:click={() => {
+			goto("/storyline");
+		}}>Select Storyline</Button>
+	{/if}
 </div>
