@@ -29,6 +29,7 @@ export const newSubmissionSchema = z.object({
   teamId: z.string(),
   roundId: z.number(),
   storyId: z.string(),
+  link: z.string()
 })
 
 export const updateSubmissionSchema = z.object({
