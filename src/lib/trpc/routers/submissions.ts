@@ -4,7 +4,7 @@ import { t } from "../trpc";
 
 export const submissionRouter = t.router({
     startSubmission: t.procedure.input(newSubmissionSchema).query(async (input) => {
-        const { teamId, roundId , storyId } = input.input
+        const { teamId, roundId , storyId, link } = input.input
 
         if (teamId && roundId) {
             const isSubmissionPresent = await db.submissions.findFirst({
@@ -26,7 +26,8 @@ export const submissionRouter = t.router({
                     data: {
                         teamId: teamId,
                         round: roundId,
-                        storyId: storyId
+                        storyId: storyId,
+                        link: link
                     }
                 })
 
