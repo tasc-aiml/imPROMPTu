@@ -11,8 +11,10 @@
   console.log(data);
   let storyData: any = null;
 
+
+  import { page } from "$app/stores";
   onMount(() => {
-	trpc().storyRouter.getStory.query(storySchema.parse({storyId:"1"})).then((data) => {
+	trpc().storyRouter.getStory.query(storySchema.parse({storyId: $page.data.team.storyId})).then((data) => {
 	console.log(data);
 	storyData = data;
   })
